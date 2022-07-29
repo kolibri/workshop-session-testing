@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\ModifierInterface;
+
 class Calculator
 {
     public function __construct(private \Traversable $modifiers)
@@ -17,5 +19,15 @@ class Calculator
         }
 
         throw new \InvalidArgumentException(sprintf('No modifier "%s"', $modifierName));
+    }
+
+    public function getModifierNames(): array
+    {
+        return array_map(
+            function (ModifierInterface $modifier) {
+                return $modifier->getName();
+            },
+            iterator_to_array($this->modifiers)
+        );
     }
 }

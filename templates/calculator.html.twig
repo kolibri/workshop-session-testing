@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Calculator</h1>
+
+    {{ form_start(calculator_form) }}
+    {{ form_rest(calculator_form) }}
+    <button type="submit">calc</button>
+    {{ form_end(calculator_form) }}
+{% endblock %}

@@ -42,4 +42,26 @@ class CalculatorTest extends TestCase
         static::assertSame(10, $calculatorSut->calc(3, 7, '+'));
         static::assertSame(4, $calculatorSut->calc(7, 3, '-'));
     }
-}
+
+    public function testCanGetModifierNames(): void
+    {
+        $calculatorSut = new Calculator(
+            new \ArrayIterator([
+                $this->createModifierMock('x'),
+                $this->createModifierMock('y')
+            ]));
+
+        self::assertSame(['x', 'y'], $calculatorSut->getModifierNames());
+    }
+
+    /**
+     * @param string $name
+     * @return ModifierInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private function createModifierMock(string $name): MockObject
+    {
+        $mock = $this->createMock(ModifierInterface::class);
+        $mock->method('getName')->willReturn($name);
+
+        return $mock;
+    }}
